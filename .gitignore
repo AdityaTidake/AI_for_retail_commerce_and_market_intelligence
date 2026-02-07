@@ -14,3 +14,5 @@ build/
 .DS_Store
 .idea/
 .vscode/
+*.bat
+start_backend_with_key.bat
