@@ -27,6 +27,56 @@ export default function Forecasting() {
     }
   }
   
+  const handleExportExcel = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/export/forecast/excel`, {
+        responseType: 'blob'
+      })
+      const url = window.URL.createObjectURL(new Blob([response.data]))
+      const link = document.createElement('a')
+      link.href = url
+      link.setAttribute('download', `forecast_report_${Date.now()}.xlsx`)
+      document.body.appendChild(link)
+      link.click()
+      link.remove()
+    } catch (error) {
+      console.error('Error exporting:', error)
+      alert('Failed to export data')
+    }
+  }
+  
+  const handleExportPDF = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/export/forecast/pdf`)
+      const report = response.data
+      
+      const content = `
+${report.title}
+Generated: ${report.generated_at}
+
+Summary:
+- Total Products: ${report.summary.total_products}
+- Rising Products: ${report.summary.rising_products}
+- Top Growth: ${report.summary.top_growth ? report.summary.top_growth.product + ' (+' + report.summary.top_growth.growth_rate + '%)' : 'N/A'}
+
+Alerts:
+${report.summary.alerts.join('\n')}
+      `
+      
+      const blob = new Blob([content], { type: 'text/plain' })
+      const url = window.URL.createObjectURL(blob)
+      const link = document.createElement('a')
+      link.href = url
+      link.setAttribute('download', `forecast_report_${Date.now()}.txt`)
+      document.body.appendChild(link)
+      link.click()
+      link.remove()
+    } catch (error) {
+      console.error('Error generating report:', error)
+      alert('Failed to generate report')
+    }
+  }
+  
   if (loading) {
     return <div className="text-center py-12">Loading forecast data...</div>
   }
@@ -41,9 +91,27 @@ export default function Forecasting() {
   
   return (
     <div className="space-y-6">
-      <div>
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">Demand Forecasting</h2>
-        <p className="text-gray-600">7-day demand predictions for all products</p>
+      <div className="flex items-center justify-between">
+        <div>
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">Demand Forecasting</h2>
+          <p className="text-gray-600">7-day demand predictions for all products</p>
+        </div>
+        <div className="flex space-x-2">
+          <button
+            onClick={handleExportExcel}
+            className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors flex items-center space-x-2"
+          >
+            <span>📊</span>
+            <span>Export Excel</span>
+          </button>
+          <button
+            onClick={handleExportPDF}
+            className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors flex items-center space-x-2"
+          >
+            <span>📄</span>
+            <span>Export Report</span>
+          </button>
+        </div>
       </div>
       
       <div className="bg-white rounded-lg shadow p-6">

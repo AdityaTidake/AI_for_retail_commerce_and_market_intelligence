@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
+import ProductModal from '../components/ProductModal'
+import Toast from '../components/Toast'
 
 const API_URL = '/api'
 
@@ -21,6 +23,8 @@ export default function Inventory() {
   const [loading, setLoading] = useState(true)
   const [data, setData] = useState(null)
   const [filter, setFilter] = useState('ALL')
+  const [selectedProduct, setSelectedProduct] = useState(null)
+  const [toast, setToast] = useState(null)
   
   useEffect(() => {
     loadData()
@@ -37,6 +41,57 @@ export default function Inventory() {
     }
   }
   
+  const handleExportExcel = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/export/inventory/excel`, {
+        responseType: 'blob'
+      })
+      const url = window.URL.createObjectURL(new Blob([response.data]))
+      const link = document.createElement('a')
+      link.href = url
+      link.setAttribute('download', `inventory_report_${Date.now()}.xlsx`)
+      document.body.appendChild(link)
+      link.click()
+      link.remove()
+    } catch (error) {
+      console.error('Error exporting:', error)
+      alert('Failed to export data')
+    }
+  }
+  
+  const handleExportPDF = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/export/inventory/pdf`)
+      const report = response.data
+      
+      // Create a simple text representation
+      const content = `
+${report.title}
+Generated: ${report.generated_at}
+
+Summary:
+- Critical Alerts: ${report.summary.critical_alerts}
+- Warning Alerts: ${report.summary.warning_alerts}
+- Total Products: ${report.summary.total_products}
+
+High Risk Products:
+${report.summary.high_risk_products.join('\n')}
+      `
+      
+      const blob = new Blob([content], { type: 'text/plain' })
+      const url = window.URL.createObjectURL(blob)
+      const link = document.createElement('a')
+      link.href = url
+      link.setAttribute('download', `inventory_report_${Date.now()}.txt`)
+      document.body.appendChild(link)
+      link.click()
+      link.remove()
+    } catch (error) {
+      console.error('Error generating report:', error)
+      alert('Failed to generate report')
+    }
+  }
+  
   if (loading) {
     return <div className="text-center py-12">Loading inventory data...</div>
   }
@@ -46,10 +101,35 @@ export default function Inventory() {
     : data.alerts.filter(a => a.risk_level === filter)
   
   return (
-    <div className="space-y-6">
-      <div>
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">Inventory Management</h2>
-        <p className="text-gray-600">Stock alerts and reorder recommendations</p>
+    <div className="space-y-6 animate-fade-in">
+      {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
+      
+      <div className="bg-gradient-to-r from-blue-600 to-cyan-600 rounded-2xl shadow-xl p-8 text-white">
+        <div className="flex items-center justify-between">
+          <div>
+            <h2 className="text-3xl font-bold mb-2 flex items-center">
+              <span className="text-4xl mr-3">📦</span>
+              Inventory Management
+            </h2>
+            <p className="text-blue-100">Stock alerts and reorder recommendations</p>
+          </div>
+          <div className="flex space-x-3">
+            <button
+              onClick={handleExportExcel}
+              className="px-6 py-3 bg-white/20 backdrop-blur-sm text-white rounded-xl hover:bg-white/30 transition-all flex items-center space-x-2 shadow-lg transform hover:scale-105"
+            >
+              <span>📊</span>
+              <span className="font-medium">Export Excel</span>
+            </button>
+            <button
+              onClick={handleExportPDF}
+              className="px-6 py-3 bg-white/20 backdrop-blur-sm text-white rounded-xl hover:bg-white/30 transition-all flex items-center space-x-2 shadow-lg transform hover:scale-105"
+            >
+              <span>📄</span>
+              <span className="font-medium">Export Report</span>
+            </button>
+          </div>
+        </div>
       </div>
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -138,8 +218,12 @@ export default function Inventory() {
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
               {filteredAlerts.map((alert, idx) => (
-                <tr key={idx} className="hover:bg-gray-50">
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                <tr 
+                  key={idx} 
+                  className="hover:bg-gray-50 cursor-pointer"
+                  onClick={() => setSelectedProduct(alert.product)}
+                >
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-600 hover:text-blue-800">
                     {alert.product}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
@@ -163,6 +247,13 @@ export default function Inventory() {
           </table>
         </div>
       </div>
+      
+      {selectedProduct && (
+        <ProductModal
+          productName={selectedProduct}
+          onClose={() => setSelectedProduct(null)}
+        />
+      )}
     </div>
   )
 }

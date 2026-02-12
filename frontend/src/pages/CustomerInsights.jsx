@@ -23,6 +23,57 @@ export default function CustomerInsights() {
     }
   }
   
+  const handleExportExcel = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/export/sentiment/excel`, {
+        responseType: 'blob'
+      })
+      const url = window.URL.createObjectURL(new Blob([response.data]))
+      const link = document.createElement('a')
+      link.href = url
+      link.setAttribute('download', `sentiment_report_${Date.now()}.xlsx`)
+      document.body.appendChild(link)
+      link.click()
+      link.remove()
+    } catch (error) {
+      console.error('Error exporting:', error)
+      alert('Failed to export data')
+    }
+  }
+  
+  const handleExportPDF = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/export/sentiment/pdf`)
+      const report = response.data
+      
+      const content = `
+${report.title}
+Generated: ${report.generated_at}
+
+Summary:
+- Total Reviews: ${report.summary.total_reviews}
+- Positive Reviews: ${report.summary.positive_reviews}
+- Negative Reviews: ${report.summary.negative_reviews}
+- Satisfaction Rate: ${report.summary.satisfaction_rate}%
+
+Top Issues:
+${report.summary.top_issues.join('\n')}
+      `
+      
+      const blob = new Blob([content], { type: 'text/plain' })
+      const url = window.URL.createObjectURL(blob)
+      const link = document.createElement('a')
+      link.href = url
+      link.setAttribute('download', `sentiment_report_${Date.now()}.txt`)
+      document.body.appendChild(link)
+      link.click()
+      link.remove()
+    } catch (error) {
+      console.error('Error generating report:', error)
+      alert('Failed to generate report')
+    }
+  }
+  
   if (loading) {
     return <div className="text-center py-12">Loading customer insights...</div>
   }
@@ -39,9 +90,27 @@ export default function CustomerInsights() {
   
   return (
     <div className="space-y-6">
-      <div>
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">Customer Insights</h2>
-        <p className="text-gray-600">Sentiment analysis and feedback intelligence</p>
+      <div className="flex items-center justify-between">
+        <div>
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">Customer Insights</h2>
+          <p className="text-gray-600">Sentiment analysis and feedback intelligence</p>
+        </div>
+        <div className="flex space-x-2">
+          <button
+            onClick={handleExportExcel}
+            className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors flex items-center space-x-2"
+          >
+            <span>📊</span>
+            <span>Export Excel</span>
+          </button>
+          <button
+            onClick={handleExportPDF}
+            className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors flex items-center space-x-2"
+          >
+            <span>📄</span>
+            <span>Export Report</span>
+          </button>
+        </div>
       </div>
       
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

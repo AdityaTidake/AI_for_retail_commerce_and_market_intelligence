@@ -13,6 +13,12 @@ date,product,units_sold
 2024-01-12,Laptop Pro,95
 2024-01-13,Laptop Pro,88
 2024-01-14,Laptop Pro,92
+2024-01-15,Laptop Pro,98
+2024-01-16,Laptop Pro,105
+2024-01-17,Laptop Pro,110
+2024-01-18,Laptop Pro,115
+2024-01-19,Laptop Pro,120
+2024-01-20,Laptop Pro,125
 2024-01-01,Wireless Mouse,120
 2024-01-02,Wireless Mouse,115
 2024-01-03,Wireless Mouse,130
@@ -27,6 +33,12 @@ date,product,units_sold
 2024-01-12,Wireless Mouse,165
 2024-01-13,Wireless Mouse,180
 2024-01-14,Wireless Mouse,175
+2024-01-15,Wireless Mouse,190
+2024-01-16,Wireless Mouse,185
+2024-01-17,Wireless Mouse,200
+2024-01-18,Wireless Mouse,195
+2024-01-19,Wireless Mouse,210
+2024-01-20,Wireless Mouse,205
 2024-01-01,USB-C Cable,200
 2024-01-02,USB-C Cable,195
 2024-01-03,USB-C Cable,210
@@ -41,6 +53,12 @@ date,product,units_sold
 2024-01-12,USB-C Cable,245
 2024-01-13,USB-C Cable,260
 2024-01-14,USB-C Cable,255
+2024-01-15,USB-C Cable,270
+2024-01-16,USB-C Cable,265
+2024-01-17,USB-C Cable,280
+2024-01-18,USB-C Cable,275
+2024-01-19,USB-C Cable,290
+2024-01-20,USB-C Cable,285
 2024-01-01,Mechanical Keyboard,35
 2024-01-02,Mechanical Keyboard,38
 2024-01-03,Mechanical Keyboard,32
@@ -55,6 +73,12 @@ date,product,units_sold
 2024-01-12,Mechanical Keyboard,60
 2024-01-13,Mechanical Keyboard,62
 2024-01-14,Mechanical Keyboard,65
+2024-01-15,Mechanical Keyboard,68
+2024-01-16,Mechanical Keyboard,70
+2024-01-17,Mechanical Keyboard,72
+2024-01-18,Mechanical Keyboard,75
+2024-01-19,Mechanical Keyboard,78
+2024-01-20,Mechanical Keyboard,80
 2024-01-01,Monitor 27inch,28
 2024-01-02,Monitor 27inch,30
 2024-01-03,Monitor 27inch,25
@@ -69,3 +93,129 @@ date,product,units_sold
 2024-01-12,Monitor 27inch,52
 2024-01-13,Monitor 27inch,55
 2024-01-14,Monitor 27inch,58
+2024-01-15,Monitor 27inch,60
+2024-01-16,Monitor 27inch,62
+2024-01-17,Monitor 27inch,65
+2024-01-18,Monitor 27inch,68
+2024-01-19,Monitor 27inch,70
+2024-01-20,Monitor 27inch,72
+2024-01-01,Gaming Headset,65
+2024-01-02,Gaming Headset,68
+2024-01-03,Gaming Headset,62
+2024-01-04,Gaming Headset,70
+2024-01-05,Gaming Headset,75
+2024-01-06,Gaming Headset,78
+2024-01-07,Gaming Headset,80
+2024-01-08,Gaming Headset,85
+2024-01-09,Gaming Headset,88
+2024-01-10,Gaming Headset,90
+2024-01-11,Gaming Headset,95
+2024-01-12,Gaming Headset,98
+2024-01-13,Gaming Headset,100
+2024-01-14,Gaming Headset,105
+2024-01-15,Gaming Headset,108
+2024-01-16,Gaming Headset,110
+2024-01-17,Gaming Headset,115
+2024-01-18,Gaming Headset,118
+2024-01-19,Gaming Headset,120
+2024-01-20,Gaming Headset,125
+2024-01-01,Webcam HD,42
+2024-01-02,Webcam HD,45
+2024-01-03,Webcam HD,40
+2024-01-04,Webcam HD,48
+2024-01-05,Webcam HD,50
+2024-01-06,Webcam HD,52
+2024-01-07,Webcam HD,55
+2024-01-08,Webcam HD,58
+2024-01-09,Webcam HD,60
+2024-01-10,Webcam HD,62
+2024-01-11,Webcam HD,65
+2024-01-12,Webcam HD,68
+2024-01-13,Webcam HD,70
+2024-01-14,Webcam HD,72
+2024-01-15,Webcam HD,75
+2024-01-16,Webcam HD,78
+2024-01-17,Webcam HD,80
+2024-01-18,Webcam HD,82
+2024-01-19,Webcam HD,85
+2024-01-20,Webcam HD,88
+2024-01-01,External SSD 1TB,55
+2024-01-02,External SSD 1TB,58
+2024-01-03,External SSD 1TB,52
+2024-01-04,External SSD 1TB,60
+2024-01-05,External SSD 1TB,62
+2024-01-06,External SSD 1TB,65
+2024-01-07,External SSD 1TB,68
+2024-01-08,External SSD 1TB,70
+2024-01-09,External SSD 1TB,72
+2024-01-10,External SSD 1TB,75
+2024-01-11,External SSD 1TB,78
+2024-01-12,External SSD 1TB,80
+2024-01-13,External SSD 1TB,82
+2024-01-14,External SSD 1TB,85
+2024-01-15,External SSD 1TB,88
+2024-01-16,External SSD 1TB,90
+2024-01-17,External SSD 1TB,92
+2024-01-18,External SSD 1TB,95
+2024-01-19,External SSD 1TB,98
+2024-01-20,External SSD 1TB,100
+2024-01-01,Desk Lamp LED,30
+2024-01-02,Desk Lamp LED,32
+2024-01-03,Desk Lamp LED,28
+2024-01-04,Desk Lamp LED,35
+2024-01-05,Desk Lamp LED,33
+2024-01-06,Desk Lamp LED,30
+2024-01-07,Desk Lamp LED,32
+2024-01-08,Desk Lamp LED,28
+2024-01-09,Desk Lamp LED,30
+2024-01-10,Desk Lamp LED,32
+2024-01-11,Desk Lamp LED,30
+2024-01-12,Desk Lamp LED,28
+2024-01-13,Desk Lamp LED,30
+2024-01-14,Desk Lamp LED,32
+2024-01-15,Desk Lamp LED,30
+2024-01-16,Desk Lamp LED,28
+2024-01-17,Desk Lamp LED,30
+2024-01-18,Desk Lamp LED,32
+2024-01-19,Desk Lamp LED,30
+2024-01-20,Desk Lamp LED,28
+2024-01-01,Phone Stand,85
+2024-01-02,Phone Stand,88
+2024-01-03,Phone Stand,82
+2024-01-04,Phone Stand,90
+2024-01-05,Phone Stand,92
+2024-01-06,Phone Stand,95
+2024-01-07,Phone Stand,98
+2024-01-08,Phone Stand,100
+2024-01-09,Phone Stand,102
+2024-01-10,Phone Stand,105
+2024-01-11,Phone Stand,108
+2024-01-12,Phone Stand,110
+2024-01-13,Phone Stand,112
+2024-01-14,Phone Stand,115
+2024-01-15,Phone Stand,118
+2024-01-16,Phone Stand,120
+2024-01-17,Phone Stand,122
+2024-01-18,Phone Stand,125
+2024-01-19,Phone Stand,128
+2024-01-20,Phone Stand,130
+2024-01-01,Bluetooth Speaker,48
+2024-01-02,Bluetooth Speaker,50
+2024-01-03,Bluetooth Speaker,45
+2024-01-04,Bluetooth Speaker,52
+2024-01-05,Bluetooth Speaker,55
+2024-01-06,Bluetooth Speaker,58
+2024-01-07,Bluetooth Speaker,60
+2024-01-08,Bluetooth Speaker,62
+2024-01-09,Bluetooth Speaker,65
+2024-01-10,Bluetooth Speaker,68
+2024-01-11,Bluetooth Speaker,70
+2024-01-12,Bluetooth Speaker,72
+2024-01-13,Bluetooth Speaker,75
+2024-01-14,Bluetooth Speaker,78
+2024-01-15,Bluetooth Speaker,80
+2024-01-16,Bluetooth Speaker,82
+2024-01-17,Bluetooth Speaker,85
+2024-01-18,Bluetooth Speaker,88
+2024-01-19,Bluetooth Speaker,90
+2024-01-20,Bluetooth Speaker,92

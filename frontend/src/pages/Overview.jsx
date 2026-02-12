@@ -5,21 +5,22 @@ const API_URL = '/api'
 
 function StatCard({ title, value, subtitle, icon, color = 'blue' }) {
   const colorClasses = {
-    blue: 'bg-blue-50 text-blue-700',
-    red: 'bg-red-50 text-red-700',
-    green: 'bg-green-50 text-green-700',
-    yellow: 'bg-yellow-50 text-yellow-700',
+    blue: 'from-blue-500 to-blue-600',
+    red: 'from-red-500 to-red-600',
+    green: 'from-green-500 to-green-600',
+    yellow: 'from-yellow-500 to-yellow-600',
+    purple: 'from-purple-500 to-purple-600',
   }
   
   return (
-    <div className="bg-white rounded-lg shadow p-6">
+    <div className="bg-white rounded-xl shadow-lg p-6 card-hover animate-slide-up">
       <div className="flex items-center justify-between">
         <div>
           <p className="text-sm text-gray-600 mb-1">{title}</p>
           <p className="text-3xl font-bold text-gray-900">{value}</p>
           {subtitle && <p className="text-sm text-gray-500 mt-1">{subtitle}</p>}
         </div>
-        <div className={`w-12 h-12 rounded-lg ${colorClasses[color]} flex items-center justify-center text-2xl`}>
+        <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${colorClasses[color]} flex items-center justify-center text-2xl shadow-lg transform hover:scale-110 transition-transform`}>
           {icon}
         </div>
       </div>
@@ -29,13 +30,13 @@ function StatCard({ title, value, subtitle, icon, color = 'blue' }) {
 
 function AlertCard({ alert, type = 'warning' }) {
   const typeStyles = {
-    warning: 'border-yellow-200 bg-yellow-50',
-    danger: 'border-red-200 bg-red-50',
-    info: 'border-blue-200 bg-blue-50',
+    warning: 'border-yellow-400 bg-gradient-to-r from-yellow-50 to-yellow-100',
+    danger: 'border-red-400 bg-gradient-to-r from-red-50 to-red-100',
+    info: 'border-blue-400 bg-gradient-to-r from-blue-50 to-blue-100',
   }
   
   return (
-    <div className={`border-l-4 p-4 ${typeStyles[type]}`}>
+    <div className={`border-l-4 p-4 rounded-r-lg ${typeStyles[type]} animate-slide-up shadow-sm hover:shadow-md transition-shadow`}>
       <p className="text-sm font-medium text-gray-900">{alert}</p>
     </div>
   )
@@ -87,10 +88,10 @@ export default function Overview() {
     : 0
   
   return (
-    <div className="space-y-6">
-      <div>
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">Dashboard Overview</h2>
-        <p className="text-gray-600">Real-time retail intelligence and insights</p>
+    <div className="space-y-6 animate-fade-in">
+      <div className="bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl shadow-xl p-8 text-white">
+        <h2 className="text-3xl font-bold mb-2">Dashboard Overview</h2>
+        <p className="text-purple-100">Real-time retail intelligence and insights powered by AI</p>
       </div>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -125,8 +126,11 @@ export default function Overview() {
       </div>
       
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="bg-white rounded-lg shadow p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">🚨 Critical Alerts</h3>
+        <div className="bg-white rounded-xl shadow-lg p-6 animate-slide-up">
+          <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+            <span className="text-2xl mr-2">🚨</span>
+            Critical Alerts
+          </h3>
           <div className="space-y-3">
             {data.forecast?.alerts?.map((alert, idx) => (
               <AlertCard key={idx} alert={alert} type="info" />
@@ -144,34 +148,43 @@ export default function Overview() {
           </div>
         </div>
         
-        <div className="bg-white rounded-lg shadow p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">💡 Top Customer Issues</h3>
+        <div className="bg-white rounded-xl shadow-lg p-6 animate-slide-up">
+          <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+            <span className="text-2xl mr-2">💡</span>
+            Top Customer Issues
+          </h3>
           <div className="space-y-4">
             {data.sentiment?.top_issues?.slice(0, 5).map((issue, idx) => (
               <div key={idx} className="flex items-center justify-between">
                 <div className="flex-1">
                   <p className="text-sm font-medium text-gray-900 capitalize">{issue.issue}</p>
-                  <div className="mt-1 w-full bg-gray-200 rounded-full h-2">
+                  <div className="mt-1 w-full bg-gray-200 rounded-full h-2.5 overflow-hidden">
                     <div
-                      className="bg-red-500 h-2 rounded-full"
+                      className="bg-gradient-to-r from-red-500 to-red-600 h-2.5 rounded-full transition-all duration-500"
                       style={{ width: `${issue.percentage}%` }}
                     />
                   </div>
                 </div>
-                <span className="ml-4 text-sm font-semibold text-gray-700">{issue.count}</span>
+                <span className="ml-4 text-sm font-semibold text-gray-700 bg-gray-100 px-3 py-1 rounded-full">{issue.count}</span>
               </div>
             ))}
           </div>
         </div>
       </div>
       
-      <div className="bg-white rounded-lg shadow p-6">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">🔥 Trending Products</h3>
+      <div className="bg-white rounded-xl shadow-lg p-6 animate-slide-up">
+        <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+          <span className="text-2xl mr-2">🔥</span>
+          Trending Products
+        </h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {data.forecast?.rising_products?.map((product, idx) => (
-            <div key={idx} className="border rounded-lg p-4">
+            <div key={idx} className="border-2 border-green-200 rounded-xl p-4 bg-gradient-to-br from-green-50 to-emerald-50 card-hover">
               <p className="font-medium text-gray-900">{product.product}</p>
-              <p className="text-2xl font-bold text-green-600 mt-2">+{product.growth_rate}%</p>
+              <p className="text-3xl font-bold text-green-600 mt-2 flex items-center">
+                <span className="animate-bounce-slow mr-2">📈</span>
+                +{product.growth_rate}%
+              </p>
               <p className="text-sm text-gray-600 mt-1">
                 Avg: {product.avg_daily_demand} units/day
               </p>
