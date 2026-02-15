@@ -4,6 +4,7 @@ import Forecasting from './pages/Forecasting'
 import Inventory from './pages/Inventory'
 import CustomerInsights from './pages/CustomerInsights'
 import AICopilot from './pages/AICopilot'
+import FloatingCopilot from './components/FloatingCopilot'
 
 function Navigation() {
   const location = useLocation()
@@ -13,7 +14,6 @@ function Navigation() {
     { path: '/forecasting', label: 'Forecasting', icon: '📈' },
     { path: '/inventory', label: 'Inventory', icon: '📦' },
     { path: '/insights', label: 'Customer Insights', icon: '💬' },
-    { path: '/copilot', label: 'AI Copilot', icon: '🤖' },
   ]
   
   return (
@@ -65,6 +65,7 @@ function App() {
             <Route path="/copilot" element={<AICopilot />} />
           </Routes>
         </main>
+        <FloatingCopilot />
       </div>
     </Router>
   )

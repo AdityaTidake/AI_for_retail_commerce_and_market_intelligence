@@ -6,7 +6,8 @@
 ┌─────────────────────────────────────────────────────────────┐
 │                     Frontend (React)                         │
 │  ┌──────────┬──────────┬──────────┬──────────┬──────────┐  │
-│  │ Overview │Forecast  │Inventory │ Insights │ Copilot  │  │
+│  │ Overview │Forecast  │Inventory │ Insights │ Floating │  │
+│  │          │          │          │          │ Copilot  │  │
 │  └──────────┴──────────┴──────────┴──────────┴──────────┘  │
 │                         │                                    │
 │                    Axios HTTP Client                         │
@@ -36,7 +37,7 @@
                     ┌─────▼─────┐
                     │ External  │
                     │ Services  │
-                    │ (OpenAI)  │
+                    │ (Groq API)│
                     └───────────┘
 ```
 
@@ -145,9 +146,14 @@ elif competitor_price > current_price * 1.1:
 **Architecture**:
 1. Gather business context from all modules
 2. Build context summary for LLM
-3. Send user question + context to OpenAI
+3. Send user question + context to Groq API
 4. Extract action items from response
 5. Return answer with metadata
+
+**AI Engine**: Groq API with LLaMA models
+- Fast inference for real-time chat
+- Cost-effective alternative to OpenAI
+- High-quality responses for business queries
 
 **Context Grounding**:
 ```python
@@ -173,13 +179,47 @@ Answer with specific data and actionable recommendations.
 ```
 App
 ├── Navigation
+├── FloatingCopilot (Global Component)
 └── Routes
     ├── Overview
     ├── Forecasting
     ├── Inventory
-    ├── CustomerInsights
-    └── AICopilot
+    └── CustomerInsights
 ```
+
+### Floating AI Copilot Component
+**Location**: `frontend/src/components/FloatingCopilot.jsx`
+
+**Features**:
+- Circular floating button at bottom-right corner
+- Robot emoji icon (🤖)
+- Glassmorphism design with gradient background
+- Smooth slide-in animation from right
+- Pulsing animation when closed
+- Available on all pages
+
+**Chat Panel UI**:
+- Header with "AI Copilot Assistant" title
+- Welcome message: "Hello! How can I assist you today?"
+- 6 suggested question chips with icons:
+  - 📈 What are the sales trends?
+  - 📦 Which products need restocking?
+  - 💰 Show pricing recommendations
+  - 💬 What is customer sentiment?
+  - 🎯 Top performing products?
+  - 📊 Generate sales forecast
+- Chat messages area with auto-scroll
+- Text input field with send button
+- Voice input button (Web Speech API)
+- Typing indicator (animated dots)
+- Close button (X) to hide panel
+
+**Interactions**:
+- Click robot button to open/close panel
+- Click suggestion chip to populate input
+- Type message and press Enter or click send
+- Click microphone for voice input
+- Voice input turns red and pulses while listening
 
 ### State Management
 - Local component state using React hooks
@@ -213,14 +253,18 @@ App
 8. Charts/tables display updated data
 
 ### Chat Copilot Flow:
-1. User types question in chat
-2. POST request to `/chat` endpoint
-3. Backend gathers context from all modules
-4. Context + question sent to OpenAI API
-5. GPT-3.5 generates contextual answer
-6. Action items extracted via keyword matching
-7. Response with answer + actions returned
-8. Chat UI displays message with action items
+1. User clicks floating robot button
+2. Chat panel slides in from right
+3. User sees welcome message and suggested questions
+4. User clicks suggestion chip or types/speaks question
+5. POST request to `/chat` endpoint
+6. Backend gathers context from all modules
+7. Context + question sent to Groq API
+8. LLaMA model generates contextual answer
+9. Action items extracted via keyword matching
+10. Response with answer + actions returned
+11. Chat UI displays message with typing animation
+12. Messages auto-scroll to bottom
 
 ## Performance Considerations
 
@@ -307,12 +351,13 @@ marketmind-ai/
 │   └── chat_copilot.py      # AI chat assistant
 ├── frontend/
 │   ├── src/
+│   │   ├── components/
+│   │   │   └── FloatingCopilot.jsx  # Global AI chat
 │   │   ├── pages/
 │   │   │   ├── Overview.jsx
 │   │   │   ├── Forecasting.jsx
 │   │   │   ├── Inventory.jsx
-│   │   │   ├── CustomerInsights.jsx
-│   │   │   └── AICopilot.jsx
+│   │   │   └── CustomerInsights.jsx
 │   │   ├── App.jsx
 │   │   ├── main.jsx
 │   │   └── index.css
@@ -326,9 +371,13 @@ marketmind-ai/
 │   ├── reviews.csv
 │   └── pricing.csv
 ├── requirements.txt
+├── requirements-windows.txt
+├── requirements-py313.txt
 ├── .env.example
 ├── .gitignore
 ├── requirements.md
 ├── design.md
+├── start_backend.bat
+├── start_frontend.bat
 └── README.md
 ```

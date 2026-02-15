@@ -62,12 +62,19 @@ MarketMind AI is an AI-powered retail intelligence copilot designed to enhance d
 
 ### 5. AI Retail Copilot Chat Assistant
 - **Input**: Natural language questions from retail managers
-- **AI Engine**: OpenAI GPT-3.5-turbo with context grounding
+- **AI Engine**: Groq API with LLaMA models for fast inference
 - **Context**: Integrates data from forecast, inventory, sentiment, and pricing modules
 - **Output**: 
   - Intelligent answers based on business data
   - Actionable recommendations
   - Context metadata showing data sources used
+- **UI Features**:
+  - Floating robot button at bottom-right corner
+  - Slide-in chat panel with glassmorphism design
+  - Welcome message with suggested question chips
+  - Voice input support (Web Speech API)
+  - Typing indicator animation
+  - Auto-scroll chat messages
 
 **API Endpoint**: `POST /chat`
 - Request: `{question: "..."}`
@@ -80,7 +87,7 @@ MarketMind AI is an AI-powered retail intelligence copilot designed to enhance d
 - **Data Processing**: Pandas, NumPy
 - **Forecasting**: Simple Moving Average algorithm
 - **NLP**: HuggingFace Transformers (DistilBERT)
-- **AI Chat**: OpenAI API (GPT-3.5-turbo)
+- **AI Chat**: Groq API (LLaMA models)
 - **Server**: Uvicorn ASGI server
 
 ### Frontend
@@ -126,11 +133,21 @@ MarketMind AI is an AI-powered retail intelligence copilot designed to enhance d
 - Product-wise sentiment breakdown
 - Recent reviews with sentiment labels
 
-### 5. AI Copilot Tab
-- Chat interface with message history
-- Suggested questions for quick access
-- Action items extraction
-- Real-time AI responses
+### 5. Floating AI Copilot (Global)
+- Circular floating robot button (bottom-right)
+- Glassmorphism slide-in chat panel
+- Welcome message with 6 suggested question chips:
+  - 📈 What are the sales trends?
+  - 📦 Which products need restocking?
+  - 💰 Show pricing recommendations
+  - 💬 What is customer sentiment?
+  - 🎯 Top performing products?
+  - 📊 Generate sales forecast
+- Text input with send button
+- Voice input support (microphone button)
+- Typing indicator animation
+- Auto-scroll chat messages
+- Close button to hide panel
 
 ## Design Principles
 - Clean, modern retail analytics theme
@@ -142,16 +159,21 @@ MarketMind AI is an AI-powered retail intelligence copilot designed to enhance d
 ## Setup Requirements
 
 ### Backend Setup
-1. Install Python 3.8+
+1. Install Python 3.11+ (Python 3.13 recommended for latest features)
 2. Install dependencies: `pip install -r requirements.txt`
-3. Create `.env` file with `OPENAI_API_KEY`
-4. Run server: `python -m backend.main`
+   - For Windows with Python 3.13: Uses updated package versions
+   - Prophet dependency removed (not used in code)
+3. Create `.env` file with `GROQ_API_KEY`
+4. Run server: `python -m backend.main` or `.\start_backend.bat`
+5. Backend runs on: `http://localhost:8000`
+6. API docs available at: `http://localhost:8000/docs`
 
 ### Frontend Setup
 1. Install Node.js 16+
-2. Install dependencies: `npm install`
-3. Run dev server: `npm run dev`
-4. Access at `http://localhost:3000`
+2. Navigate to frontend folder: `cd frontend`
+3. Install dependencies: `npm install`
+4. Run dev server: `npm run dev` or use `.\start_frontend.bat` from root
+5. Access at `http://localhost:3000`
 
 ## API Configuration
 - Backend runs on: `http://localhost:8000`

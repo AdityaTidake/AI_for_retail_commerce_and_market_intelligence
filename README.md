@@ -45,8 +45,12 @@ MarketMind AI consolidates retail intelligence into a single dashboard with:
 - Margin improvement opportunities
 
 ### 5. AI Retail Copilot
-- OpenAI GPT-3.5 powered chat assistant
+- Groq API powered chat assistant (LLaMA models)
+- Floating robot button accessible from all pages
 - Context-aware responses using live business data
+- Voice input support (Web Speech API)
+- Suggested question chips for quick queries
+- Glassmorphism design with smooth animations
 - Actionable recommendations
 - Natural language business queries
 
@@ -56,7 +60,7 @@ MarketMind AI consolidates retail intelligence into a single dashboard with:
 - FastAPI (Python web framework)
 - Pandas & NumPy (data processing)
 - HuggingFace Transformers (NLP)
-- OpenAI API (chat copilot)
+- Groq API (chat copilot with LLaMA models)
 - Uvicorn (ASGI server)
 
 **Frontend:**
@@ -65,6 +69,7 @@ MarketMind AI consolidates retail intelligence into a single dashboard with:
 - Recharts (data visualization)
 - Axios (HTTP client)
 - Vite (build tool)
+- Web Speech API (voice input)
 
 **Data:**
 - CSV datasets (sales, inventory, reviews, pricing)
@@ -72,9 +77,9 @@ MarketMind AI consolidates retail intelligence into a single dashboard with:
 ## 📦 Installation
 
 ### Prerequisites
-- Python 3.8+
+- Python 3.11+ (Python 3.13 recommended)
 - Node.js 16+
-- OpenAI API key
+- Groq API key (free at https://console.groq.com)
 
 ### Backend Setup
 
@@ -83,14 +88,16 @@ MarketMind AI consolidates retail intelligence into a single dashboard with:
 pip install -r requirements.txt
 ```
 
+For Windows with Python 3.13, the requirements.txt has been updated with compatible versions.
+
 2. Create `.env` file:
 ```powershell
 copy .env.example .env
 ```
 
-3. Add your OpenAI API key to `.env`:
+3. Add your Groq API key to `.env`:
 ```
-OPENAI_API_KEY=your_api_key_here
+GROQ_API_KEY=your_api_key_here
 ```
 
 4. Run the backend server:
@@ -98,7 +105,13 @@ OPENAI_API_KEY=your_api_key_here
 python -m backend.main
 ```
 
+Or use the batch file:
+```powershell
+.\start_backend.bat
+```
+
 Backend will run on `http://localhost:8000`
+API docs available at `http://localhost:8000/docs`
 
 ### Frontend Setup
 
@@ -117,34 +130,43 @@ npm install
 npm run dev
 ```
 
-4. Return to root (for other commands):
+Or use the batch file from project root:
 ```powershell
-cd ..
+.\start_frontend.bat
 ```
 
 Frontend will run on `http://localhost:3000`
 
 ## 🎮 Usage
 
-1. **Start Backend**: Run `python -m backend.main` from project root
-2. **Start Frontend**: Run `npm run dev` from `frontend/` directory
+1. **Start Backend**: Run `.\start_backend.bat` or `python -m backend.main` from project root
+2. **Start Frontend**: Run `.\start_frontend.bat` or `npm run dev` from `frontend/` directory
 3. **Access Dashboard**: Open `http://localhost:3000` in your browser
 4. **Explore Features**:
    - Overview: See key metrics and alerts
    - Forecasting: View demand predictions
    - Inventory: Check stock alerts
    - Customer Insights: Analyze sentiment
-   - AI Copilot: Ask business questions
+   - **Floating AI Copilot**: Click the robot button (🤖) at bottom-right to chat
+5. **Try Voice Input**: Click the microphone button in the chat to speak your questions
+6. **Use Suggested Questions**: Click any suggestion chip for quick queries
 
 ## 📊 Sample Questions for AI Copilot
 
+Try these questions with the floating AI Copilot (click the 🤖 button):
+
+- "What are the sales trends?"
+- "Which products need restocking?"
+- "Show pricing recommendations"
+- "What is customer sentiment?"
+- "Top performing products?"
+- "Generate sales forecast"
 - "What should I restock this week?"
-- "Which products are trending?"
 - "Summarize customer complaints"
-- "What are the pricing recommendations?"
-- "Show me inventory risks"
 - "Why are sales dropping for USB-C Cable?"
 - "Which product has the best customer satisfaction?"
+
+You can also use voice input by clicking the microphone button!
 
 ## 📁 Project Structure
 
@@ -158,6 +180,8 @@ marketmind-ai/
 │   └── chat_copilot.py      # AI chat assistant
 ├── frontend/
 │   ├── src/
+│   │   ├── components/
+│   │   │   └── FloatingCopilot.jsx  # Global AI chat widget
 │   │   ├── pages/           # React page components
 │   │   ├── App.jsx          # Main app component
 │   │   └── main.jsx         # Entry point
@@ -169,6 +193,10 @@ marketmind-ai/
 │   ├── reviews.csv          # Customer reviews
 │   └── pricing.csv          # Pricing data
 ├── requirements.txt         # Python dependencies
+├── requirements-windows.txt # Windows-specific versions
+├── requirements-py313.txt   # Python 3.13 compatible versions
+├── start_backend.bat        # Windows backend launcher
+├── start_frontend.bat       # Windows frontend launcher
 ├── requirements.md          # Feature requirements
 ├── design.md               # Architecture documentation
 └── README.md               # This file
@@ -208,9 +236,11 @@ marketmind-ai/
 - Product sentiment breakdown
 
 ### AI Copilot
-- Chat interface
-- Suggested questions
-- Action items extraction
+- Floating robot button (bottom-right corner)
+- Slide-in chat panel with glassmorphism design
+- Welcome message and suggested question chips
+- Voice input support
+- Typing animation indicator
 
 ## 🚧 Future Enhancements
 
@@ -247,7 +277,8 @@ For issues or questions:
 1. Check `requirements.md` for feature details
 2. Check `design.md` for architecture info
 3. Ensure all dependencies are installed
-4. Verify OpenAI API key is configured
+4. Verify Groq API key is configured in `.env`
+5. For Python 3.13 on Windows, use the updated `requirements.txt`
 
 ## 🎉 Demo Tips
 
@@ -255,6 +286,10 @@ For issues or questions:
 2. **Highlight Forecasting**: Demonstrate demand predictions
 3. **Show Inventory Alerts**: Explain risk-based recommendations
 4. **Present Sentiment**: Show NLP-powered insights
-5. **Finale with AI Copilot**: Ask impressive questions and show intelligent responses
+5. **Finale with Floating AI Copilot**: 
+   - Click the robot button at bottom-right
+   - Try suggested question chips
+   - Demonstrate voice input
+   - Show intelligent, context-aware responses
 
 
